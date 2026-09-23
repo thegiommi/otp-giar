@@ -8,6 +8,8 @@ End-to-end encrypted in the browser. The server never sees the key.
 [![License: MIT](https://img.shields.io/badge/license-MIT-2f4ea3)](LICENSE)
 [![SvelteKit](https://img.shields.io/badge/SvelteKit-Svelte_5-2f4ea3)](https://svelte.dev)
 [![Node](https://img.shields.io/badge/node-%E2%89%A5_22.18-2f4ea3)](https://nodejs.org)
+[![npm](https://img.shields.io/npm/v/otp-giar?color=2f4ea3&label=npm)](https://www.npmjs.com/package/otp-giar)
+[![PyPI](https://img.shields.io/pypi/v/otp-giar?color=2f4ea3&label=pypi)](https://pypi.org/project/otp-giar/)
 [![SQLite](https://img.shields.io/badge/storage-SQLite-2f4ea3)](https://nodejs.org/api/sqlite.html)
 
 [Live instance](https://otp.giar.digital) · [API docs](https://otp.giar.digital/docs) · [OpenAPI](https://otp.giar.digital/api/v1/openapi.json) · [Self-hosting](#self-hosting)
@@ -146,17 +148,25 @@ curl -s -X POST https://otp.giar.digital/api/v1/secrets \
   -d '{"secret": "DB_PASSWORD=hunter2", "expiresIn": 3600, "maxViews": 1}'
 ```
 
-**JavaScript / TypeScript** – [`sdks/js`](sdks/js), zero dependencies, Node ≥ 20, Deno, Bun, browsers
+**JavaScript / TypeScript** – [`otp-giar` on npm](https://www.npmjs.com/package/otp-giar), zero dependencies, Node ≥ 20, Deno, Bun, browsers
+
+```sh
+npm install otp-giar
+```
 
 ```ts
-import { OtpClient } from '@giar/otp';
+import { OtpClient } from 'otp-giar';
 
 const otp = new OtpClient({ baseUrl: 'https://otp.giar.digital' });
 const { link } = await otp.create('DB_PASSWORD=hunter2', { expiresIn: 3600, maxViews: 1 });
 const { secret } = await otp.reveal(link);
 ```
 
-**Python** – [`sdks/python`](sdks/python), depends only on `cryptography`
+**Python** – [`otp-giar` on PyPI](https://pypi.org/project/otp-giar/), depends only on `cryptography`
+
+```sh
+pip install otp-giar
+```
 
 ```python
 from otp_giar import OtpClient
@@ -169,13 +179,10 @@ print(otp.reveal(created.link).secret)
 **CLI** for CI/CD – secrets come from stdin, passwords from an environment variable, never from arguments
 
 ```sh
-pip install "git+https://github.com/thegiommi/otp-giar#subdirectory=sdks/python"
 export OTP_BASE_URL=https://otp.giar.digital
-printf '%s' "$STAGING_PASSWORD" | otp-giar create --ttl 1d --views 1
-otp-giar reveal "https://otp.giar.digital/s/<id>#<key>"
+printf '%s' "$STAGING_PASSWORD" | npx otp-giar create --ttl 1d --views 1   # or: pip install otp-giar
+npx otp-giar reveal "https://otp.giar.digital/s/<id>#<key>"
 ```
-
-> The packages are not on npm/PyPI yet. Until then install the Python SDK from Git as shown above, or build the JS SDK with `npm run build` in `sdks/js`.
 
 The web app, the JS SDK and the Python SDK are tested against each other: a secret created by any of them opens in any other.
 

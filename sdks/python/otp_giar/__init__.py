@@ -228,7 +228,7 @@ class OtpClient:
         )
 
     def _request(self, method: str, path: str, body: Any = None, headers: Optional[dict] = None) -> Any:
-        req_headers = {"Accept": "application/json", "User-Agent": f"giar-otp-python/{__version__}"}
+        req_headers = {"Accept": "application/json", "User-Agent": f"otp-giar-python/{__version__}"}
         if self.api_key:
             req_headers["Authorization"] = f"Bearer {self.api_key}"
         data = None

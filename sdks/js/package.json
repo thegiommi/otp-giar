@@ -1,7 +1,25 @@
 {
-	"name": "@giar/otp",
+	"name": "otp-giar",
 	"version": "1.0.0",
-	"description": "JavaScript/TypeScript SDK and CLI for giar otp – self-destructing, end-to-end encrypted secrets",
+	"description": "SDK and CLI for giar otp: share self-destructing, end-to-end encrypted secrets from code and CI pipelines",
+	"keywords": [
+		"secret",
+		"one-time-secret",
+		"password-sharing",
+		"end-to-end-encryption",
+		"self-destructing",
+		"aes-gcm",
+		"cli",
+		"ci"
+	],
+	"homepage": "https://otp.giar.digital/docs",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/thegiommi/otp-giar.git",
+		"directory": "sdks/js"
+	},
+	"bugs": "https://github.com/thegiommi/otp-giar/issues",
+	"author": "GIAR Digital",
 	"license": "MIT",
 	"type": "module",
 	"exports": {
@@ -10,18 +28,23 @@
 			"default": "./dist/index.js"
 		}
 	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"bin": {
-		"otp-giar": "./dist/cli.js"
+		"otp-giar": "dist/cli.js"
 	},
 	"files": [
 		"dist"
 	],
 	"scripts": {
 		"build": "tsc -p tsconfig.json",
-		"prepublishOnly": "npm run build"
+		"prepack": "npm run build"
 	},
 	"engines": {
 		"node": ">=20"
 	},
-	"sideEffects": false
+	"sideEffects": false,
+	"publishConfig": {
+		"access": "public"
+	}
 }

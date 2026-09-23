@@ -9,7 +9,7 @@
 	const quickstart = $derived([
 		{
 			label: 'JavaScript',
-			code: `import { OtpClient } from '@giar/otp';
+			code: `import { OtpClient } from 'otp-giar';
 
 const otp = new OtpClient({ baseUrl: '${base}', apiKey: process.env.OTP_API_KEY });
 
@@ -38,17 +38,18 @@ print(revealed.secret)`
 		},
 		{
 			label: 'CLI',
-			code: `pip install "git+https://github.com/thegiommi/otp-giar#subdirectory=sdks/python"
-export OTP_BASE_URL=${base}
+			code: `export OTP_BASE_URL=${base}
 
 # Geheimnis kommt über stdin, der Link auf stdout.
-printf '%s' "$DB_PASSWORD" | otp-giar create --ttl 1h --views 1
+printf '%s' "$DB_PASSWORD" | npx otp-giar create --ttl 1h --views 1
 
 # Öffnen
-otp-giar reveal "${base}/s/<id>#<key>"
+npx otp-giar reveal "${base}/s/<id>#<key>"
 
 # Mit Passwort (aus einer Umgebungsvariable, nie als Argument)
-printf '%s' "$TOKEN" | otp-giar create --password-env SHARE_PW`
+printf '%s' "$TOKEN" | npx otp-giar create --password-env SHARE_PW
+
+# Alternativ in Python-Umgebungen: pip install otp-giar`
 		},
 		{
 			label: 'cURL',
@@ -102,8 +103,7 @@ ciphertext = AES-256-GCM(encKey, iv, Text, aad = "otp-giar:v1")`;
     STAGING_PASSWORD: \${{ secrets.STAGING_PASSWORD }}
     SLACK_WEBHOOK: \${{ secrets.SLACK_WEBHOOK }}
   run: |
-    pip install -q "git+https://github.com/thegiommi/otp-giar#subdirectory=sdks/python"
-    LINK=$(printf '%s' "$STAGING_PASSWORD" | otp-giar create --ttl 1d --views 1)
+    LINK=$(printf '%s' "$STAGING_PASSWORD" | npx -y otp-giar create --ttl 1d --views 1)
     echo "::add-mask::$LINK"
     curl -s -X POST "$SLACK_WEBHOOK" -H 'Content-Type: application/json' \\
       -d "{\\"text\\": \\"Staging-Zugang (einmal lesbar): $LINK\\"}"`);
@@ -172,19 +172,12 @@ ciphertext = AES-256-GCM(encKey, iv, Text, aad = "otp-giar:v1")`;
 		</div>
 		<dl class="mt-5 grid gap-4 text-sm sm:grid-cols-2">
 			<div>
-				<dt class="label">JavaScript</dt>
-				<dd class="mt-1 leading-relaxed">
-					Quellcode in
-					<a class="text-tint underline underline-offset-3" href="https://github.com/thegiommi/otp-giar/tree/main/sdks/js"
-						>sdks/js</a
-					>, das npm-Paket <code>@giar/otp</code> folgt.
-				</dd>
+				<dt class="label">npm</dt>
+				<dd class="mt-1 font-mono">npm install otp-giar</dd>
 			</div>
 			<div>
-				<dt class="label">Python</dt>
-				<dd class="mt-1 font-mono text-[0.8rem] break-all">
-					pip install "git+https://github.com/thegiommi/otp-giar#subdirectory=sdks/python"
-				</dd>
+				<dt class="label">pip</dt>
+				<dd class="mt-1 font-mono">pip install otp-giar</dd>
 			</div>
 		</dl>
 	</section>

@@ -28,3 +28,4 @@ vite.config.ts.timestamp-*
 # Build output of the JS SDK
 /sdks/js/dist
 __pycache__/
+/sdks/python/dist
