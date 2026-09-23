@@ -29,3 +29,7 @@ vite.config.ts.timestamp-*
 /sdks/js/dist
 __pycache__/
 /sdks/python/dist
+
+# Local tooling
+.claude/
+.vscode/

@@ -14,11 +14,6 @@ End-to-end encrypted in the browser. The server never sees the key.
 
 [Live instance](https://otp.giar.digital) · [API docs](https://otp.giar.digital/docs) · [OpenAPI](https://otp.giar.digital/api/v1/openapi.json) · [Self-hosting](#self-hosting)
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/create-dark.png">
-  <img alt="Creating a secret: text field, lifetime, number of views and optional password" src=".github/assets/create-light.png" width="720">
-</picture>
-
 </div>
 
 ## Why
@@ -33,10 +28,6 @@ Passwords end up in chat histories, tickets and inboxes, where they stay forever
 - **Developer API.** REST API with OpenAPI spec, SDKs for JavaScript/TypeScript and Python, and a CLI for CI/CD pipelines.
 - **Boring to run.** One Node process, one SQLite file, no native dependencies, no external services. Fonts are self-hosted; no third-party requests.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/open-dark.png">
-  <img alt="Opening a sealed, password-protected secret" src=".github/assets/open-light.png" width="720">
-</picture>
 
 ## How it works
 
