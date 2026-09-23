@@ -38,16 +38,17 @@ print(revealed.secret)`
 		},
 		{
 			label: 'CLI',
-			code: `export OTP_BASE_URL=${base}
+			code: `pip install "git+https://github.com/thegiommi/otp-giar#subdirectory=sdks/python"
+export OTP_BASE_URL=${base}
 
 # Geheimnis kommt über stdin, der Link auf stdout.
-printf '%s' "$DB_PASSWORD" | npx -y @giar/otp create --ttl 1h --views 1
+printf '%s' "$DB_PASSWORD" | otp-giar create --ttl 1h --views 1
 
 # Öffnen
-npx -y @giar/otp reveal "${base}/s/<id>#<key>"
+otp-giar reveal "${base}/s/<id>#<key>"
 
 # Mit Passwort (aus einer Umgebungsvariable, nie als Argument)
-printf '%s' "$TOKEN" | npx -y @giar/otp create --password-env SHARE_PW`
+printf '%s' "$TOKEN" | otp-giar create --password-env SHARE_PW`
 		},
 		{
 			label: 'cURL',
@@ -101,7 +102,8 @@ ciphertext = AES-256-GCM(encKey, iv, Text, aad = "otp-giar:v1")`;
     STAGING_PASSWORD: \${{ secrets.STAGING_PASSWORD }}
     SLACK_WEBHOOK: \${{ secrets.SLACK_WEBHOOK }}
   run: |
-    LINK=$(printf '%s' "$STAGING_PASSWORD" | npx -y @giar/otp create --ttl 1d --views 1)
+    pip install -q "git+https://github.com/thegiommi/otp-giar#subdirectory=sdks/python"
+    LINK=$(printf '%s' "$STAGING_PASSWORD" | otp-giar create --ttl 1d --views 1)
     echo "::add-mask::$LINK"
     curl -s -X POST "$SLACK_WEBHOOK" -H 'Content-Type: application/json' \\
       -d "{\\"text\\": \\"Staging-Zugang (einmal lesbar): $LINK\\"}"`);
@@ -170,12 +172,19 @@ ciphertext = AES-256-GCM(encKey, iv, Text, aad = "otp-giar:v1")`;
 		</div>
 		<dl class="mt-5 grid gap-4 text-sm sm:grid-cols-2">
 			<div>
-				<dt class="label">npm</dt>
-				<dd class="mt-1 font-mono">npm install @giar/otp</dd>
+				<dt class="label">JavaScript</dt>
+				<dd class="mt-1 leading-relaxed">
+					Quellcode in
+					<a class="text-tint underline underline-offset-3" href="https://github.com/thegiommi/otp-giar/tree/main/sdks/js"
+						>sdks/js</a
+					>, das npm-Paket <code>@giar/otp</code> folgt.
+				</dd>
 			</div>
 			<div>
-				<dt class="label">pip</dt>
-				<dd class="mt-1 font-mono">pip install giar-otp</dd>
+				<dt class="label">Python</dt>
+				<dd class="mt-1 font-mono text-[0.8rem] break-all">
+					pip install "git+https://github.com/thegiommi/otp-giar#subdirectory=sdks/python"
+				</dd>
 			</div>
 		</dl>
 	</section>
