@@ -2,14 +2,13 @@
 	import '@fontsource-variable/archivo/wdth.css';
 	import '@fontsource/fragment-mono/latin.css';
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
 	import { page } from '$app/state';
 
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
 	<meta name="referrer" content="no-referrer" />
 </svelte:head>
 
