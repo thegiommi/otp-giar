@@ -1,0 +1,27 @@
+{
+	"name": "@giar/otp",
+	"version": "1.0.0",
+	"description": "JavaScript/TypeScript SDK and CLI for giar otp – self-destructing, end-to-end encrypted secrets",
+	"license": "MIT",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
+	},
+	"bin": {
+		"otp-giar": "./dist/cli.js"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"prepublishOnly": "npm run build"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"sideEffects": false
+}

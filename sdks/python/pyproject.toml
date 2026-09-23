@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "giar-otp"
+version = "1.0.0"
+description = "Python SDK and CLI for giar otp – self-destructing, end-to-end encrypted secrets"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+dependencies = ["cryptography>=42"]
+
+[project.scripts]
+otp-giar = "otp_giar.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["otp_giar"]
