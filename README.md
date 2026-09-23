@@ -82,7 +82,7 @@ git clone https://github.com/thegiommi/otp-giar.git && cd otp-giar
 ORIGIN=https://otp.example.com docker compose up -d
 ```
 
-The database lives in the `otp-data` volume. Put a reverse proxy with TLS in front (Caddy, Traefik, nginx).
+The database lives in the `otp-data` volume. Put a reverse proxy with TLS in front (Caddy, Traefik, nginx). Port 3000 is published by `docker-compose.override.yml`. Coolify skips that file, so there you set the domain as `https://otp.example.com:3000`.
 
 ### Docker
 

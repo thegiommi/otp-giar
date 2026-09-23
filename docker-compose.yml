@@ -2,13 +2,11 @@ services:
   otp:
     build: .
     restart: unless-stopped
-    ports:
-      - '3000:3000'
     environment:
       ORIGIN: ${ORIGIN:-http://localhost:3000}
-      # Behind a reverse proxy, uncomment so rate limits see the client IP:
-      # ADDRESS_HEADER: X-Forwarded-For
-      # XFF_DEPTH: '1'
+      # Behind a reverse proxy, set ADDRESS_HEADER=X-Forwarded-For so rate limits see the client IP.
+      ADDRESS_HEADER: ${ADDRESS_HEADER:-}
+      XFF_DEPTH: ${XFF_DEPTH:-1}
     volumes:
       - otp-data:/data
 

@@ -1,0 +1,6 @@
+# Merged automatically by `docker compose up`. Platforms that pass `-f docker-compose.yml`
+# (Coolify, for example) skip it and route to port 3000 through their own proxy.
+services:
+  otp:
+    ports:
+      - '3000:3000'
